@@ -1,0 +1,21 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore environment files
+.env
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore database dumps
+*.sql
+*.sqlite
+
+# Ignore build output
+dist/
+build/
+
+#Ignore firebase service key
+firebase-service-account-key.json
+service-account-key.base64
