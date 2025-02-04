@@ -40,10 +40,6 @@ exports.getMeetingById = async (req, res) => {
     const meeting = await Meeting.findById(req.params.id);
     if (!meeting) return res.status(404).json({ message: 'Meeting not found' });
 
-    if (meeting.host !== req.user.uid && !meeting.participants.includes(req.user.email)) {
-      return res.status(403).json({ message: 'Access denied' });
-    }
-
     res.status(200).json(meeting);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching meeting', error });
