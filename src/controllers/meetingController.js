@@ -22,12 +22,7 @@ exports.scheduleMeeting = async (req, res) => {
 // Get all meetings for the logged-in user
 exports.getMeetings = async (req, res) => {
   try {
-    const meetings = await Meeting.find({
-      $or: [
-        { host: req.user.uid },
-        { participants: req.user.email },
-      ],
-    });
+    const meetings = await Meeting.find({ host: req.user.uid });
     res.status(200).json(meetings);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching meetings', error });
