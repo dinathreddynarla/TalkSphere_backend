@@ -13,8 +13,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/api/meetings", meetingRoutes);
-app.use("/api/users", userRoutes);
+app.use("/meetings", meetingRoutes);
+app.use("/users", userRoutes);
 
 
 // Start Database Connection

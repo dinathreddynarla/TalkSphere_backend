@@ -70,7 +70,7 @@ exports.deleteMeeting = async (req, res) => {
     if (!meeting) return res.status(404).json({ message: 'Meeting not found' });
     if (meeting.host !== req.user.uid) return res.status(403).json({ message: 'Access denied' });
 
-    await meeting.remove();
+    await Meeting.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Meeting deleted' });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting meeting', error });
