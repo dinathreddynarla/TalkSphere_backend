@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String },
   profilePicture: { type: String },
   createdAt: { type: Date, default: Date.now },
-});
+},{ strict: false } );
 
 module.exports = mongoose.model("User", userSchema);
 
