@@ -8,6 +8,6 @@ const MeetingSchema = new mongoose.Schema({
   host: { type: String, required: true },
   participants: [{ type: String }],
   createdAt: { type: Date, default: Date.now },
-});
+},{ strict: false } );
 
 module.exports = mongoose.model('Meeting', MeetingSchema);
