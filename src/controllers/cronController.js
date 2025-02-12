@@ -5,7 +5,8 @@ const moment = require("moment-timezone");
 exports.deleteExpiredMeetings = async (req, res) => {
   try {
     // Get the current time in IST
-    const currentIST = moment().tz("Asia/Kolkata").toDate();
+    const currentIST = moment().tz("Asia/Kolkata").format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    
 
     // Log the current IST time (optional)
     console.log(`Current IST Time: ${currentIST}`);
