@@ -8,6 +8,7 @@ const MeetingSchema = new mongoose.Schema({
   host: { type: String, required: true },
   participants: [{ type: String }],
   createdAt: { type: Date, default: Date.now },
-},{ strict: false } );
+  isActive: { type: Boolean, default: false }  // Set the default value to false
+}, { strict: false });
 
 module.exports = mongoose.model('Meeting', MeetingSchema);
