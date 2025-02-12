@@ -103,3 +103,6 @@ exports.addParticipant = async (req, res) => {
     res.status(500).json({ message: 'Error adding participant', error });
   }
 };
+
+
+

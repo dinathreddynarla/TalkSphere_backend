@@ -4,7 +4,7 @@ const connectDB = require("./config/db");
 const cors = require('cors');
 const meetingRoutes = require("./routes/meetingRoutes");
 const userRoutes = require("./routes/userRoutes");
-
+const cronRoutes = require("./routes/cronRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -15,6 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/meetings", meetingRoutes);
 app.use("/users", userRoutes);
+app.use("/cron",cronRoutes)
 
 
 // Start Database Connection
