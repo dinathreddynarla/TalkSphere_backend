@@ -116,7 +116,7 @@ exports.startMeetByHost = async (req,res)=>{
 
     meeting.isActive = true;
     await meeting.save();
-    res.status(200).json(meeting);
+    res.status(200).json({message:"success", data : meeting});
   } catch (error) {
     res.status(500).json({ message: 'Error updating meeting', error });
   }
