@@ -3,15 +3,17 @@ const Meeting = require('../models/Meeting');
 // Schedule a new meeting
 exports.scheduleMeeting = async (req, res) => {
   try {
-    const { title, description, date, duration, participants } = req.body;
+    const { title, description, date, participants } = req.body;
     const meeting = new Meeting({
       title,
       description,
       date,
-      duration,
       host: req.user.uid,
       participants,
     });
+    if(title == "Instant Meet"){
+      meeting.isActive = true;
+    }
     await meeting.save();
     res.status(201).json(meeting);
   } catch (error) {
@@ -53,7 +55,6 @@ exports.updateMeeting = async (req, res) => {
     meeting.title = title || meeting.title;
     meeting.description = description || meeting.description;
     meeting.date = date || meeting.date;
-    meeting.duration = duration || meeting.duration;
     meeting.participants = participants || meeting.participants;
 
     await meeting.save();
@@ -88,7 +89,10 @@ exports.addParticipant = async (req, res) => {
     if (!meeting) {
       return res.status(404).json({ message: 'Meeting not found' });
     }
-
+    if(!meeting.isActive) {
+      return res.status(404).json({message : 'Meeting not started yet'});
+    }
+  
     // Check if the participant is already in the meeting
     if (meeting.participants.includes(email)) {
       return res.status(400).json({ message: 'Participant already added' });
@@ -104,5 +108,17 @@ exports.addParticipant = async (req, res) => {
   }
 };
 
+exports.startMeetByHost = async (req,res)=>{
+  try{
+    const { id }  = req.params;
+    const meeting = await Meeting.findById(id);
+    if (!meeting) return res.status(404).json({ message: 'Meeting not found' });
 
+    meeting.isActive = true;
+    await meeting.save();
+    res.status(200).json(meeting);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating meeting', error });
+  }
+}
 
