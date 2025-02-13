@@ -11,9 +11,9 @@ exports.scheduleMeeting = async (req, res) => {
       host: req.user.uid,
       participants,
     });
-    if(title == "Instant Meet"){
-      meeting.isActive = true;
-    }
+    // if(title === "Instant Meet"){
+    //   meeting.isActive = true;
+    // }
     await meeting.save();
     res.status(201).json(meeting);
   } catch (error) {
