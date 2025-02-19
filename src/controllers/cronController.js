@@ -29,6 +29,7 @@ exports.deleteExpiredMeetings = async (req, res) => {
 
 exports.checkAndActivateMeeting = async (req, res) => {
   try {
+    let activated_meetings = []
     // Get the current time in IST and format it as "YYYY-MM-DDTHH:mm:ss.SSSZ"
     const currentIST = moment().tz("Asia/Kolkata").format("YYYY-MM-DDTHH:mm:ss.SSSZ");  // Current time in IST
     
@@ -49,11 +50,13 @@ exports.checkAndActivateMeeting = async (req, res) => {
           { _id: meeting._id }, 
           { $set: { isActive: true } }
         );
+        let msg = `Meeting with ID ${meeting._id} has been activated.`
         console.log(`Meeting with ID ${meeting._id} has been activated.`);
+        activated_meetings.push(msg)
       }
     }
     
-    res.status(200).json({ message: 'Checked and updated meeting statuses.' });
+    res.status(200).json({ message: 'Checked and updated meeting statuses.', info : activated_meetings });
   } catch (error) {
     res.status(500).json({ message: "Error checking and updating meeting status", error });
   }
